@@ -2,7 +2,7 @@ import <_>
 from <_> import nn
 # import all needed libs, fill all blanks.
 
-class SimpleMLP(nn.Module):
+class SimpleMLP(nn.<_>): # Fill this blank. Hint: https://pytorch.org/docs/stable/nn.html?highlight=forward#torch.nn.Module
     def __init__(self,dimsList,activation=None,name="SimpleMLP"):
         # __init__ gives the init of instances of this class, this function is called a method of this class.
         super(SimpleMLP,self).__init__()# This init the parent class of this class.
