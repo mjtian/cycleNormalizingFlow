@@ -14,6 +14,8 @@
 
 `git branch`:list all of the branches in your repo.
 
+`git branch -D <branch>`:
+
 `git checkout <branch>` :checkout an existing branch.
 
 `git checkout <commit>`:
