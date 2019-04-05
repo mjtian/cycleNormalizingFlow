@@ -2,7 +2,9 @@
 
 
 
-`git add`:add all current changes to the next commit.
+`git add <file>`：
+
+`git add -A`:
 
 `git status`:list which files are staged,unchanged,and un tracked.
 
@@ -18,9 +20,9 @@
 
 `git checkout <branch>` :checkout an existing branch.
 
-`git checkout <commit>`:switch branches or restore working tree files.work on the top of <commit>
+`git checkout <commit>`:
 
-`git checkout <branch or commit> -- <paths to file>`:check out paths to the working tree,checkout to the <branch or commit>. 
+`git checkout <branch or commit> -- <paths to file>`:
 
 `git stash`:stash the changes in a dirty working directory away.
 
@@ -48,7 +50,7 @@
 
 `git merge <branch>`:merge<branch>into the current branch.
 
-`git cherry-pick <commit>`:apply the changes introduced by some existing commits.<>is a more complete list of ways to spell commits.
+`git cherry-pick <commit>`:apply the changes introduced by some existing commits. <>is a more complete list of ways to spell commits.
 
 `git branch --set-upstream <host/branch>`：set tracking information for <host/branch>
 
