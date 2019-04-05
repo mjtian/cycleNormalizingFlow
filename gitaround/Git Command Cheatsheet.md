@@ -50,5 +50,5 @@
 
 `git cherry-pick <commit>`:
 
-`git branch --set-upstream <host/branch>`
+`git branch --set-upstream <host/branch>`：set tracking information for <host/branch>
 
