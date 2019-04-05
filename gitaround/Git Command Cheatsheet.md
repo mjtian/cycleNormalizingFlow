@@ -36,7 +36,7 @@
 
 `git remote add <name> <URL>`:add new remote repository,named <name>.
 
-`git remote del <name>`:<name> is deleted. 
+`git remote del <name>`: <name> is deleted. 
 
 `git push <host> <branch>`:update remote refs along with associated objects.
 
