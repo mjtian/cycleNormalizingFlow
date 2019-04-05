@@ -22,7 +22,7 @@
 
 `git checkout <commit>`:roll back to the commit specified in the working directory, which is a read-only operation that does not affect the state of the current workspace.
 
-`git checkout <branch or commit> -- <paths to file>`:checkout to the branch or roll to the commit,branch or commit is in <paths to file>
+`git checkout <branch or commit> -- <paths to file>`:roll back a file to commit or branch.
 
 `git stash`:stash the changes in a dirty working directory away.
 
