@@ -2,19 +2,19 @@
 
 
 
-`git add`:
+`git add`:add all current changes to the next commit.
 
-`git status`:
+`git status`:list which files are staged,unchanged,and un tracked.
 
-`git reset`:
+`git reset`:reset staging area to match most recent commit,but leave the working directory unchanged.
 
-`git reset --hard`:
+`git reset --hard`:reset staging area and working directory to match most recent commit and overwrites all changes in working directory.
 
-`git commit -m <message>`:
+`git commit -m <message>`:commit the staged snapshot,but instead of launching a test editor,use <message>as the commit message.
 
-`git branch`:
+`git branch`:list all of the branches in your repo.
 
-`git checkout <branch>` :
+`git checkout <branch>` :checkout an existing branch.
 
 `git checkout <commit>`:
 
@@ -24,15 +24,15 @@
 
 `git stash pop`:
 
-`git checkout -b <branch>`:
+`git checkout -b <branch>`:create and check out a new baranch named <branch>.
 
-`git init`:
+`git init`:initialize the current directory as a git repo.
 
-`git clone <URL>`:
+`git clone <URL>`:clone repo located at <URL> onto local machine.
 
-`git remote -v`:
+`git remote -v`:list all currently configures remotes
 
-`git remote add <name> <URL>`:
+`git remote add <name> <URL>`:add new remote repository,named <name>.
 
 `git remote del <name>`:
 
@@ -42,9 +42,9 @@
 
 `git pull <host> <branch>`:
 
-`git fetch`:
+`git fetch`:fetch all the remote fefs.
 
-`git merge <branch>`:
+`git merge <branch>`:merge<branch>into the current branch.
 
 `git cherry-pick <commit>`:
 
