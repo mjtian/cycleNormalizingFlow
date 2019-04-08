@@ -13,3 +13,8 @@ $$
 $$
 So, the init api of this class should contain the *shape* of each layer, and *activations* of each layer.
 
+#### 2. Build a reversed MLP
+
+**Object:** make `python test2.py` runs without error.
+
+**Don't** reimplement a new class, import code from `test.py`, and implement two dimension transformations MLP of $28*28\rightarrow50\rightarrow1$ and $1\rightarrow 10\rightarrow 28*28$, note that this kind of transformation is what a GAN is doing.
