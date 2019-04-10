@@ -1,6 +1,7 @@
 import torch
-from torch.nn import nn
+import torch.nn as nn
 import numpy as np
+import torch.nn.functional as F
 
 class SimpleMLP(nn.Module): # Fill this blank. Hint: https://pytorch.org/docs/stable/nn.html?highlight=forward#torch.nn.Module
     def __init__(self,dimsList,activation=None,name="SimpleMLP"):
@@ -8,25 +9,25 @@ class SimpleMLP(nn.Module): # Fill this blank. Hint: https://pytorch.org/docs/st
         super(SimpleMLP,self).__init__()# This init the parent class of this class.
 
         # This build up activation if it is not give, in this example two ways of set default value are given.
-        if activation is ReLU: # Fill this blank.
+        if activation is None: # Fill this blank.
             activation = [nn.ReLU() for i in range(len(dimsList)-2)]
-            activation.append(nn.Sigmoid) # The last activation function should be sigmoid, refer to pytorch doc to find its init and fill here.
+            activation.append(nn.Sigmoid()) # The last activation function should be sigmoid, refer to pytorch doc to find its init and fill here.
 
-        assert(len(dimsList) = len(activation)+1) # Simple sanity check. what relation does these two value have?
+        assert(len(dimsList) == len(activation)+1) # Simple sanity check. what relation does these two value have?
 
 
         layerList = []
         for no in range(len(activation)): # Fill this blank, create a typical python loop here.
-            layerList.append(nn.Linear(< >,<_>)) # Refer to pytorch to find torch.nn.Linear, see how to init it.
+            layerList.append(nn.Linear(28*28, 100)) # Refer to pytorch to find torch.nn.Linear, see how to init it.
             layerList.append(activation[no]) # Fill this blank, so at end of every Linear layer there will be an activation function from list activation.
 
-        self.layerList = <_>(layerList) # Here init sub module for our net, Hint: https://pytorch.org/docs/stable/nn.html#torch.nn.ModuleList
+        self.layerList = nn.ModuleList(layerList) # Here init sub module for our net, Hint: https://pytorch.org/docs/stable/nn.html#torch.nn.ModuleList
         self.name = name # This give a name to our net, it's a convention.
 
     def forward(self,x): # The default method to transform a set variable in pytorch, entrance of data.
         for layer in self.layerList:
-            x = <_> # Fill this blank, Hint: https://pytorch.org/docs/stable/nn.html?highlight=forward#torch.nn.Module.forward
-        return <_> # Fill this blank
+            x =x * self.layerList[layer](x)# Fill this blank, Hint: https://pytorch.org/docs/stable/nn.html?highlight=forward#torch.nn.Module.forward
+        return x# Fill this blank
 
 
 if __name__=='__main__':
