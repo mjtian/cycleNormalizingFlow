@@ -18,15 +18,15 @@ class SimpleMLP(nn.Module): # Fill this blank. Hint: https://pytorch.org/docs/st
 
         layerList = []
         for no in range(len(activation)): # Fill this blank, create a typical python loop here.
-            layerList.append(nn.Linear(28*28, 100)) # Refer to pytorch to find torch.nn.Linear, see how to init it.
-            layerList.append(activation[no]) # Fill this blank, so at end of every Linear layer there will be an activation function from list activation.
+            layerList.append(nn.Linear(dimsList[no -1], dimsList[no]) # Refer to pytorch to find torch.nn.Linear, see how to init it.
+            layerList.append(activationv [no]) # Fill this blank, so at end of every Linear layer there will be an activation function from list activation.
 
         self.layerList = nn.ModuleList(layerList) # Here init sub module for our net, Hint: https://pytorch.org/docs/stable/nn.html#torch.nn.ModuleList
         self.name = name # This give a name to our net, it's a convention.
 
     def forward(self,x): # The default method to transform a set variable in pytorch, entrance of data.
         for layer in self.layerList:
-            x =x * self.layerList[layer](x)# Fill this blank, Hint: https://pytorch.org/docs/stable/nn.html?highlight=forward#torch.nn.Module.forward
+            x =self.layerList[layer](x)# Fill this blank, Hint: https://pytorch.org/docs/stable/nn.html?highlight=forward#torch.nn.Module.forward
         return x# Fill this blank
 
 
