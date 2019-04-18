@@ -24,6 +24,8 @@
 
 `git checkout <branch or commit> -- <paths to file>`:roll back a file to commit or branch.
 
+`git push origin --delete <branch name>`:delete remote branch
+
 `git stash`:stash the changes in a dirty working directory away.
 
 `git stash pop`:remove a single stashed state from the stash list and apply it on top of the current working tree state.
