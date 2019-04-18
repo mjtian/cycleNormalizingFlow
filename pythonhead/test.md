@@ -26,3 +26,7 @@ So, the init api of this class should contain the *shape* of each layer, and *ac
 I have moved test.py to `utils/layer`,  so you now have to make `test2.py` run again.
 
 Examples can be found at `utils/layers`
+
+Hint1: Since `test2.py` is not finished at the time I checked out test3 branch, `git cherry-pick` may be useful.
+
+Hint2: This task is about import architecture in python, refer to what I have done at [my utils](https://github.com/li012589/NeuralRG/tree/master/utils). The key is how to write your `__init__.py` .
