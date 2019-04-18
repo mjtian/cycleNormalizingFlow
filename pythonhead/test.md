@@ -18,3 +18,11 @@ So, the init api of this class should contain the *shape* of each layer, and *ac
 **Object:** make `python test2.py` runs without error.
 
 **Don't** reimplement a new class, import code from `test.py`, and implement two dimension transformations MLP of $28*28\rightarrow50\rightarrow1$ and $1\rightarrow 10\rightarrow 28*28$, note that this kind of transformation is what a GAN is doing.
+
+
+
+#### 3. Test2 Again
+
+I have moved test.py to `utils/layer`,  so you now have to make `test2.py` run again.
+
+Examples can be found at `utils/layers`
