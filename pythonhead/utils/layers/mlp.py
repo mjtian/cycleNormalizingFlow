@@ -2,8 +2,7 @@ import torch
 import torch.nn as nn
 
 
-BATCH_SIZE = 50
-LR = 0.001
+
 
 class SimpleMLP(nn.Module):
     def __init__(self,dimsList,activation=None,name="SimpleMLP"):
