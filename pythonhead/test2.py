@@ -1,10 +1,10 @@
 import torch
-import test
-from test import SimpleMLP
-import torch.nn as nn
 
-net1 = SimpleMLP([28*28,100,50,1])
-net2 = SimpleMLP([1,50,100,28*28])
+import utils
+
+
+net1 = utils.SimpleMLP([28*28,100,50,1])
+net2 = utils.SimpleMLP([1,50,100,28*28])
 
 test = torch.randn(10,28*28)
 result1 = net1(test) #10*1
