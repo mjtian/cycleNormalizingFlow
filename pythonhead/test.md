@@ -19,8 +19,6 @@ So, the init api of this class should contain the *shape* of each layer, and *ac
 
 **Don't** reimplement a new class, import code from `test.py`, and implement two dimension transformations MLP of $28*28\rightarrow50\rightarrow1$ and $1\rightarrow 10\rightarrow 28*28$, note that this kind of transformation is what a GAN is doing.
 
-
-
 #### 3. Test2 Again
 
 I have moved test.py to `utils/layer`,  so you now have to make `test2.py` run again.
@@ -55,3 +53,32 @@ I have already wroten some simple test at `/test/test_example.py`. You can use t
 
 
 This is an way to use the concept Unit Test in python.
+
+#### 5. Simple bijective(NICE)
+
+Here a **bijective** function is a function that map a set $V \in \mathbb{R}^n$ into another set $U \in \mathbb{R}^n$ and also have the inversed mapping of $U \rightarrow V$. One simple form of this is like :
+$$
+\begin{split}
+&&\mathbf{F} = \mathbf{f}_0 \circ \mathbf{f}_1 \\
+&\text{where }
+&\mathbf{f}_0(\mathbf{x},\mathbf{y}) = (\mathbf{x}+\mathbf{v}(\mathbf{y}),\mathbf{y}) \\
+&&\mathbf{f}_1(\mathbf{x},\mathbf{y}) = (\mathbf{x},\mathbf{y}+\mathbf{u}(\mathbf{x})) \\
+&&\mathbf{v}: \mathbb{R}^{\frac{n}{2}} \rightarrow \mathbb{R}^{\frac{n}{2}} ;
+\mathbf{u}: \mathbb{R}^{\frac{n}{2}} \rightarrow \mathbb{R}^{\frac{n}{2}} \\
+&&\mathbf{x},\mathbf{y}\in \mathbb{R}^{\frac{n}{2}}
+\end{split}
+$$
+So here your task is code a bijecitve network that parameterize this kind of function.
+
+Template is given at `NICE.py`, related tests are given at `test/test_nice.py`.
+
+#### 6. Abstraction of bijective test
+
+
+
+#### 7. Abstraction of bijective net
+
+
+
+#### 8. RealNVP
+
