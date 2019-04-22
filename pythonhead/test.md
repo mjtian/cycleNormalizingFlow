@@ -30,3 +30,28 @@ Examples can be found at `utils/layers`
 Hint1: Since `test2.py` is not finished at the time I checked out test3 branch, `git cherry-pick` may be useful.
 
 Hint2: This task is about import architecture in python, refer to what I have done at [my utils](https://github.com/li012589/NeuralRG/tree/master/utils). The key is how to write your `__init__.py` .
+
+
+
+#### 4. pytest
+
+First install `pytest` using `conda` or `pip`
+
+Then run `pytest` at the folder `pythonhead`, you should see something like this:
+
+```bash
+=============================================== test session starts ================================================
+platform darwin -- Python 3.6.8, pytest-3.2.5, py-1.4.33, pluggy-0.4.0
+rootdir: /Users/lili/Documents/MySpace/cycleNormalizingFlow/pythonhead, inifile:
+collected 2 items
+
+test/test_example.py ..
+
+============================================= 2 passed in 0.54 seconds ============================================
+```
+
+I have already wroten some simple test at `/test/test_example.py`. You can use this as example to make `test2.py` into a unit test at `/test/test_mlp.py`.
+
+
+
+This is an way to use the concept Unit Test in python.
