@@ -16,8 +16,18 @@ class NICE(nn.Module): # fill in the parent class
 
     def forward(self,z):
         for i in range(len(self.tList)):  # write the transmission of variables here, may take multiply lines.
-            net = SimpleMLP(i+1, 25, 50, 100)
-            z = net.forward(z)
+            # net = SimpleMLP(i+1, 25, 50, 100)
+            # z = net.forward(z)
+
+        self.tList=[v,u]
+
+        v_y = self.tList[0](y)
+        u_x = self.tList[1](x)
+
+        f0 =(x+v_y,y)
+        f1 =(x, y + u_x)
+
+        f = f0 * f1
         return z
 
 
