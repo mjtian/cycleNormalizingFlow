@@ -16,3 +16,6 @@ def test_bijective():
 
     assert_array_almost_equal(x.detach().numpy(),yx.detach().numpy())
     assert_array_almost_equal(y.detach().numpy(),yxy.detach().numpy())
+
+if __name__ == "__main__":
+    test_bijective()
