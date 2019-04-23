@@ -1,20 +1,32 @@
 import torch
 from torch import nn
+from utils import SimpleMLP
 
-class NICE(<_>): # fill in the parent class
+class NICE(nn.Module): # fill in the parent class
     def __init__(self,tList,name="NICE"):
         super(NICE,self).__init__()
         self.name = name
-        self.tList = <_> # init your inner layer list here, remember torch has it's own init method
+        self.tList = tList # init your inner layer list here, remember torch has it's own init method
 
     def inverse(self,y):
-        for i in range(len(self.tList)):
-            <_> # write the transmission of variables here, may take multiply lines.
-
+        for i in range(len(self.tList)): # write the transmission of variables here, may take multiply lines.
+            net = SimpleMLP(i + 1, 50, 25, 8)
+            y = net.forward(y)
         return y
 
     def forward(self,z):
-        for i in range(len(self.tList)):
-            <_> # write the transmission of variables here, may take multiply lines.
-
+        for i in range(len(self.tList)):  # write the transmission of variables here, may take multiply lines.
+            net = SimpleMLP(i+1, 25, 50, 100)
+            z = net.forward(z)
         return z
+
+
+
+if __name__=='__main__':
+
+    net = NICE([100,8])
+
+    result1 = net.inverse
+    result2 = net.forward
+    print (result1.shape)
+
