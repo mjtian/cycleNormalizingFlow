@@ -9,11 +9,16 @@ class NICE(nn.Module): # fill in the parent class
         self.tList =nn.ModuleList(tList) # init your inner layer list here, remember torch has it's own init method
 
     def inverse(self,z):
-        for i in range(len(self.tList)): # write the transmission of variables here, may take multiply lines.
         x = z[:,:z.shape[1]/2]
         y = z[:,z.shape[1]/2:]
-        y = y - u(x)
-        x = x - v(y)
+        for i in range(len(self.tList)): # write the transmission of variables here, may take multiply lines.
+            if (i %2) ==0:
+                f = self.tList[i]
+                y = y - f(x)
+            else:
+                f = self.tList[i]
+                x = x - f(y)
+
         z = torch.cat((x, y),1)
         return z
 
@@ -22,10 +27,10 @@ class NICE(nn.Module): # fill in the parent class
         y = z[:,z.shape[1]/2:]
         for i in range(len(self.tList)):  # write the transmission of variables here, may take multiply lines.
             if (i %2) ==0:
-                f = v
+                f = self.tList[i]
                 x = x + f(y)
             else:
-                f = u
+                f = self.tList[i]
                 y = y + f(x)
 
 
