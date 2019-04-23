@@ -11,12 +11,12 @@ class NICE(nn.Module): # fill in the parent class
     def inverse(self,z):
         x = z[:,:z.shape[1]//2]
         y = z[:,z.shape[1]//2:]
-        for i in range(len(self.tList)): # write the transmission of variables here, may take multiply lines.
-            if (i %2) ==0:
-                f = self.tList[i]
+        for -i in range(len(self.tList)): # write the transmission of variables here, may take multiply lines.
+            if ((-i) %2) ==0:
+                f = self.tList[-i]
                 y = y - f(x)
             else:
-                f = self.tList[i]
+                f = self.tList[-i]
                 x = x - f(y)
 
         z = torch.cat((x, y),1)
