@@ -4,11 +4,12 @@ import os
 import sys
 sys.path.append(os.getcwd())
 import utils
+from NICE import NICE
 
 def test_bijective():
+    tList =[utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4]),utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4])]
     x = torch.randn(100,8)
-    f = NICE()  # Build your NICE net here, may take multiply lines.
-    tList =[SimpleMLP(), SimpleMLP()]
+    f = NICE(tList)  # Build your NICE net here, may take multiply lines.
     y = f.inverse(x)
     yx = f.forward(y)
     yxy = f.inverse(yx)
