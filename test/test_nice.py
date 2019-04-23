@@ -1,9 +1,14 @@
 import torch
 from numpy.testing import assert_array_almost_equal
+import os
+import sys
+sys.path.append(os.getcwd())
+import utils
 
 def test_bijective():
     x = torch.randn(100,8)
-    f = <_>  # Build your NICE net here, may take multiply lines.
+    f = NICE()  # Build your NICE net here, may take multiply lines.
+    tList =[SimpleMLP(), SimpleMLP()]
     y = f.inverse(x)
     yx = f.forward(y)
     yxy = f.inverse(yx)
