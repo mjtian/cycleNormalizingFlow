@@ -8,7 +8,7 @@ from NICE import NICE
 
 def test_bijective():
     tList =[utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4]),utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4])]
-    x = torch.randn(1,8)
+    x = torch.randn(100,8)
     f = NICE(tList)  # Build your NICE net here, may take multiply lines.
     y = f.inverse(x)
     yx = f.forward(y)
