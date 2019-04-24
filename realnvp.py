@@ -15,12 +15,12 @@ class Realnvp(nn.Module): # fill in the parent class
             if (i %2) ==0:
                 ft = self.tList[i]
                 fs = self.sList[i]
-                x = x - ft(y)
+                x = (x-ft(y))*torch.exp(-fs(y))
             else:
 
                 ft = self.tList[i]
                 fs = self.sList[i]
-                y = y - ft(x)
+                y = (y-ft(x))*torch.exp(-fs(x))
 
         z = torch.cat((x, y),1)
         return z
@@ -32,13 +32,11 @@ class Realnvp(nn.Module): # fill in the parent class
             if (i %2) ==0:
                 ft = self.tList[i]
                 fs = self.sList[i]
-                # x = x + ft(y)
-                x = torch.matmul(torch.exp(fs(y)),x) + ft(y)
+                x = torch.exp(fs(y))*x + ft(y)
             else:
                 ft = self.tList[i]
                 fs = self.sList[i]
-                # y = y + ft(x)
-                y = torch.matmul(torch.exp(fs(x)),y) + ft(y)
+                y = torch.exp(fs(x))*y + ft(y)
 
         z = torch.cat((x, y),1)
 
