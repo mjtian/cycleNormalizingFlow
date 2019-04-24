@@ -6,8 +6,7 @@ class Gaussian(nn.Module):
         self.name = name
         self.shapeList = nn.ModuleList(shapeList)
     def sample(self,batch_s):
-        for i in range(len(self.shapeList)):
-            z = torch.randn(batch_s,self.shapeList[i])
+        z = torch.randn(batch_s,self.shapeList)
         return z
 
     def logProbability(self,shape):
