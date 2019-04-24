@@ -4,13 +4,17 @@ import os
 import sys
 sys.path.append(os.getcwd())
 import utils
-from NICE import NICE
 
+from realnvp import Realnvp
 
 def test_bijective():
     tList =[utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4]),utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4])]
-    x = torch.randn(100,8) # Build your NICE net here, may take multiply lines.
-    f = NICE(tList)
+    sList =[utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4]),utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4])]
+    x = torch.randn(1,8)
+     # Build your NICE net here, may take multiply lines.
+    # import pdb
+    # pdb.set_trace()
+    f = Realnvp(sList,tList)
     y = f.inverse(x)
     yx = f.forward(y)
     yxy = f.inverse(yx)
