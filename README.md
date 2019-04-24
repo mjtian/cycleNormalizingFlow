@@ -94,5 +94,19 @@ $$
 \end{split}
 $$
 
-
 Fill `realnvp.py` and `test/test_realnvp.py`.
+
+
+
+#### 9. Probability Prior(Gaussian)
+
+Write a class that has two method: **sample**; **logProbability**. 
+
+This class take a shape list as input for init method.
+
+Sample take one parameter: batchSize, and return a variables from Gaussian distribution of shape [batchsize, shape].
+
+logProbability take one parameter: a pytorch variable of shape [batchsize, shape] and return the logprobability of each sample, so this is of shape [batchsize]. The equation of this log probability can be seen from [wiki: Gaussian](https://en.wikipedia.org/wiki/Normal_distribution). 
+
+Some basic frame has been wroten in `gaussian.py`.
+
