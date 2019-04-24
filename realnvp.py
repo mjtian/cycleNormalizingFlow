@@ -3,7 +3,7 @@ from torch import nn
 
 
 class Realnvp(nn.Module): # fill in the parent class
-    def __init__(self,sList,tList,name="NICE"):
+    def __init__(self,sList,tList,name="Realnvp"):
         super(Realnvp,self).__init__()
         self.name = name
         self.tList =nn.ModuleList(tList) # init your inner layer list here, remember torch has it's own init method
