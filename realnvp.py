@@ -7,20 +7,20 @@ class Realnvp(nn.Module): # fill in the parent class
         super(Realnvp,self).__init__()
         self.name = name
         self.tList =nn.ModuleList(tList) # init your inner layer list here, remember torch has it's own init method
-
+        self.sList =nn.ModuleList(sList)
     def inverse(self,z):
         x = z[:,:z.shape[1]//2]
         y = z[:,z.shape[1]//2:]
         for i in range(len(self.tList)-1,-1,-1): # write the transmission of variables here, may take multiply lines.
             if (i %2) ==0:
-                f = self.tList[i]
-                x = x - f(y )
-
-
+                ft = self.tList[i]
+                fs = self.sList[i]
+                x = x - ft(y)
             else:
 
-                f = self.tList[i]
-                y = y - f(x)
+                ft = self.tList[i]
+                fs = self.sList[i]
+                y = y - ft(x)
 
         z = torch.cat((x, y),1)
         return z
@@ -30,12 +30,15 @@ class Realnvp(nn.Module): # fill in the parent class
         y = z[:,z.shape[1]//2:]
         for i in range(len(self.tList)):  # write the transmission of variables here, may take multiply lines.
             if (i %2) ==0:
-                f = self.tList[i]
-                x = x + f(y)
+                ft = self.tList[i]
+                fs = self.sList[i]
+                # x = x + ft(y)
+                x = torch.matmul(torch.exp(fs(y)),x) + ft(y)
             else:
-                f = self.tList[i]
-                y = y + f(x)
-
+                ft = self.tList[i]
+                fs = self.sList[i]
+                # y = y + ft(x)
+                y = torch.matmul(torch.exp(fs(x)),y) + ft(y)
 
         z = torch.cat((x, y),1)
 
