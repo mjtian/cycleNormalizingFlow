@@ -82,3 +82,17 @@ Template is given at `NICE.py`, related tests are given at `test/test_nice.py`.
 
 #### 8. RealNVP
 
+Implement this bijective function:
+$$
+\begin{split}
+&&\mathbf{F} = \mathbf{f}_0 \circ \mathbf{f}_1 \\
+&\text{where }
+&\mathbf{f}_0(\mathbf{x},\mathbf{y}) = (\exp(\mathbf{sv}(\mathbf{y}))*\mathbf{x}+\mathbf{v}(\mathbf{y}),\mathbf{y}) \\
+&&\mathbf{f}_1(\mathbf{x},\mathbf{y}) = (\mathbf{x},\exp(\mathbf{su}(\mathbf{x}))*\mathbf{y}+\mathbf{u}(\mathbf{x})) \\
+&&\mathbf{v},\mathbf{u},\mathbf{sv},\mathbf{su}: \mathbb{R}^{\frac{n}{2}} \rightarrow \mathbb{R}^{\frac{n}{2}} ; \\
+&&\mathbf{x},\mathbf{y}\in \mathbb{R}^{\frac{n}{2}}
+\end{split}
+$$
+
+
+Fill `realnvp.py` and `test/test_realnvp.py`.
