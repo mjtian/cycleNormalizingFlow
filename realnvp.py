@@ -1,6 +1,6 @@
 import torch
 from torch import nn
-from utils import SimpleMLP
+
 
 class Realnvp(nn.Module): # fill in the parent class
     def __init__(self,sList,tList,name="NICE"):
@@ -36,7 +36,7 @@ class Realnvp(nn.Module): # fill in the parent class
             else:
                 ft = self.tList[i]
                 fs = self.sList[i]
-                y = torch.exp(fs(x))*y + ft(y)
+                y = torch.exp(fs(x))*y + ft(x)
 
         z = torch.cat((x, y),1)
 
