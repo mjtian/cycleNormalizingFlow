@@ -1,6 +1,6 @@
 import torch
 from torch import nn
-from utils import SimpleMLP
+
 
 class NICE(nn.Module): # fill in the parent class
     def __init__(self,tList,name="NICE"):
@@ -15,8 +15,6 @@ class NICE(nn.Module): # fill in the parent class
             if (i %2) ==0:
                 f = self.tList[i]
                 x = x - f(y )
-
-
             else:
 
                 f = self.tList[i]
