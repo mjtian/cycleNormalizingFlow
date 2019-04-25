@@ -3,12 +3,14 @@ from torch import nn
 
 
 class Realnvp(nn.Module): # fill in the parent class
-    def __init__(self,sList,tList,name="Realnvp"):
+    def __init__(self,sList,tList,prior,name="Realnvp"):
         super(Realnvp,self).__init__()
         self.name = name
         self.tList =nn.ModuleList(tList) # init your inner layer list here, remember torch has it's own init method
         self.sList =nn.ModuleList(sList)
+        self.prior= <_> <------note here!!
     def inverse(self,z):
+        inverseLogjac = z.new_zeros(z.shape[0]) <------note here!!
         x = z[:,:z.shape[1]//2]
         y = z[:,z.shape[1]//2:]
         for i in range(len(self.tList)-1,-1,-1): # write the transmission of variables here, may take multiply lines.
@@ -23,9 +25,10 @@ class Realnvp(nn.Module): # fill in the parent class
                 y = (y-ft(x))*torch.exp(-fs(x))
 
         z = torch.cat((x, y),1)
-        return z
+        return z,inverseLogjac <------note here!!
 
     def forward(self, z):
+        forwardLogjac = z.new_zeros(z.shape[0]) <------note here!!
         x = z[:,:z.shape[1]//2]
         y = z[:,z.shape[1]//2:]
         for i in range(len(self.tList)):  # write the transmission of variables here, may take multiply lines.
@@ -40,7 +43,13 @@ class Realnvp(nn.Module): # fill in the parent class
 
         z = torch.cat((x, y),1)
 
-        return z
+        return z,forwardLogjac <------note here!!
+
+    def sample(self,batchSize):
+        pass
+
+    def logProbability(self,z):
+        pass
 
 
 

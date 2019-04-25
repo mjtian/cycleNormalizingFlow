@@ -110,3 +110,22 @@ logProbability take one parameter: a pytorch variable of shape [batchsize, shape
 
 Some basic frame has been wroten in `gaussian.py`.
 
+
+
+#### 10.Jacobian
+
+Deduce the Jacobian of a NICE transformation here:
+$$
+
+$$
+Deduce the Jacobian of a RealNVP transformation here:
+$$
+
+$$
+Re-implement the inverse and forward again, this time consider the change of probability and return the change of probability using the newly added `inverse/forwardLogjac` variable.
+
+
+
+#### 11. Implement sample and probability
+
+Now, when we init the `NICE` or `RealNVP` , we take another parameter as the prior. So this transforamtion is a transformation of probability distribution, it transforamtion the prior distribution to a distribution we want. So `sample` method will draw samples from the transformed distribution. And `logProbability` method will give the log probabilitys of a batch of  given samples.
