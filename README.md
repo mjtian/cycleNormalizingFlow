@@ -116,11 +116,13 @@ Some basic frame has been wroten in `gaussian.py`.
 
 Deduce the Jacobian of a NICE transformation here:
 $$
-
+jacobian_0=[\begin{smallmatrix}I&v\\0&I\end{smallmatrix}]\\
+jacobian_1=[\begin{smallmatrix}I&0\\u&I\end{smallmatrix}]\\
 $$
 Deduce the Jacobian of a RealNVP transformation here:
 $$
-
+jacobian_0=[\begin{smallmatrix}e^{sv(y)}&xe^{sv(y)}sv+v\\0&I\end{smallmatrix}]\\
+jacobian_1=[\begin{smallmatrix}I&0\\ye^{su(x)}su+u&e^{su(x)}\end{smallmatrix}]\\
 $$
 Re-implement the inverse and forward again, this time consider the change of probability and return the change of probability using the newly added `inverse/forwardLogjac` variable.
 
