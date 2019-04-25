@@ -1,11 +1,13 @@
 import torch
 
-class Gaussian(<_>):
-    def __init__():
-        pass
+class Gaussian(nn.Module):
+    def __init__(self,shapeList,name="Gaussian"):
+      super(Gaussian,self).__init__()
+        self.name = name
+        self.shapeList = nn.ModuleList(shapeList)
+    def sample(self,batch_s):
+        z = torch.randn(batch_s,self.shapeList)
+        return z
 
-    def sample():
-        pass
+    def logProbability(self,shape):
 
-    def logProbability():
-        pass
