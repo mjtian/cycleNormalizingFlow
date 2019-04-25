@@ -1,6 +1,9 @@
 import torch
-from gaussian import Gaussian
 
+import os
+import sys
+sys.path.append(os.getcwd())
+from gaussian import Gaussian
 
 def test_gaussian():
     p = Gaussian([3,2,2])
