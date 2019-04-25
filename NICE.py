@@ -7,7 +7,7 @@ class NICE(nn.Module): # fill in the parent class
         super(NICE,self).__init__()
         self.name = name
         self.tList =nn.ModuleList(tList) # init your inner layer list here, remember torch has it's own init method
-        self.prior = <------note here!!
+        self.prior =prior #<------note here!!
     def inverse(self,z):
         inverseLogjac = z.new_zeros(z.shape[0]) <------note here!!
         x = z[:,:z.shape[1]//2]
@@ -25,7 +25,7 @@ class NICE(nn.Module): # fill in the parent class
         return z,inverseLogjac <------note here!!
 
     def forward(self, z):
-        forwardLogjac = z.new_zeros(z.shape[0]) <------note here!!
+        forwardLogjac = z.new_zeros(z.shape[0]) #<------note here!!
         x = z[:,:z.shape[1]//2]
         y = z[:,z.shape[1]//2:]
         for i in range(len(self.tList)):  # write the transmission of variables here, may take multiply lines.
