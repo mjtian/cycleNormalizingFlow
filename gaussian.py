@@ -15,10 +15,7 @@ class Gaussian(nn.Module):
         return z
 
     def logProbability(self, z):
-        return(-0.5*z**2 - 0.5*torch.log(2.*np.pi)).reshape(z.shape[0],-1).sum(dim=1)
-
-
-
+        return(-0.5*z**2 - 0.5*np.log(2.*np.pi)).reshape(z.shape[0],-1).sum(dim=1)
 
 
 
