@@ -1,6 +1,7 @@
 import torch
 from gaussian import Gaussian
 
+
 def test_gaussian():
     p = Gaussian([3,2,2])
     x = p.sample(10)
