@@ -1,5 +1,5 @@
 import torch
-
+from numpy.testing import assert_almost_equal
 import os
 import sys
 sys.path.append(os.getcwd())
@@ -17,4 +17,4 @@ def test_gaussian():
 
     logp = p.logProbability(t)
 
-    assert logp.item() == -264.0273
+    assert_almost_equal(logp.item(), -264.0273,decimal=4)
