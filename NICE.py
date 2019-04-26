@@ -44,10 +44,18 @@ class NICE(nn.Module): # fill in the parent class
         return z,forwardLogjac #<------note here!!
 
     def sample(self,batchSize):
-        pass
+
+        b = self.prior.sample(batchSize)
+        a = self.forward(b)
+        return a[0]
+
 
     def logProbability(self,z):
-        pass
+        a = self.inverse(z)
+        pp =self.prior.logProbability(a[0])
+        logp =pp - a[1]
+        return logp
+
 
 
 
