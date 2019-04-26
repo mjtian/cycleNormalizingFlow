@@ -143,3 +143,4 @@ Also, few lines below, there is a `random_draw` function add all this two functi
 #### 13. Training generative model on MNIST
 
 Add a `main.py` and training realnvp on MNIST model, the process is like this: random draw a batch of MNIST data and let realnvp give the probabilitys of every samples from this batch, and mean this batch of probability and let negative this mean as loss and do gradients descent.
+
