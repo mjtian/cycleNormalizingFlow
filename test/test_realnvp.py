@@ -31,7 +31,7 @@ def test_bijective():
     assert_array_almost_equal(pf.detach().numpy(),-pfi.detach().numpy(), decimal=6)
 
     assert_array_almost_equal((op+pi).detach().numpy(),pp.detach().numpy(), decimal=6)
-    assert_array_almost_equal((pp+pfi).detach().numpy(),op.detach().numpy())
+    assert_array_almost_equal((pp-pfi).detach().numpy(),op.detach().numpy())
 
 if __name__ == "__main__":
     test_bijective()
