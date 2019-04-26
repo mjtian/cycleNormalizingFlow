@@ -12,10 +12,13 @@ def test_bijective():
     tList =[utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4]),utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4])]
     #x = torch.randn(100,8) # Build your NICE net here, may take multiply lines.
     f = NICE(tList,prior=p)
-    x = f.sample(100)
-    op = f.logProbability(x)
-    y,pi = f.inverse(x)
-    pp = f.prior.logProbability(y)
+    # import pdb
+    # pdb.set_trace()
+    x = f.sample(100)   #变换后的sample
+
+    op = f.logProbability(x)   #变换后的logp
+    y,pi = f.inverse(x)     #变换前sample
+    pp = f.prior.logProbability(y)    #变换前logp
     yx,pf = f.forward(y)
     yxy,pfi = f.inverse(yx)
 
