@@ -131,3 +131,15 @@ Re-implement the inverse and forward again, this time consider the change of pro
 #### 11. Implement sample and probability
 
 Now, when we init the `NICE` or `RealNVP` , we take another parameter as the prior. So this transforamtion is a transformation of probability distribution, it transforamtion the prior distribution to a distribution we want. So `sample` method will draw samples from the transformed distribution. And `logProbability` method will give the log probabilitys of a batch of  given samples.
+
+
+
+#### 12. Download MNIST dataset and import into pytorch
+
+Write a script to download and unzip MNIST data, one example can be seen at <https://github.com/wangleiphy/DL4CSRC/blob/master/1-bp/utils.py#L83>
+
+Also, few lines below, there is a `random_draw` function add all this two function to `utils/MNISTtools.py`
+
+#### 13. Training generative model on MNIST
+
+Add a `main.py` and training realnvp on MNIST model, the process is like this: random draw a batch of MNIST data and let realnvp give the probabilitys of every samples from this batch, and mean this batch of probability and let negative this mean as loss and do gradients descent.
