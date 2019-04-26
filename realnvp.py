@@ -18,12 +18,12 @@ class Realnvp(nn.Module): # fill in the parent class
                 ft = self.tList[i]
                 fs = self.sList[i]
                 x = (x-ft(y))*torch.exp(-fs(y))
-                inverseLogjac -= fs(y)
+                inverseLogjac = inverseLogjac - fs(y).reshape(z.shape[0],-1).sum(dim=1)
             else:
                 ft = self.tList[i]
                 fs = self.sList[i]
                 y = (y-ft(x))*torch.exp(-fs(x))
-                inverseLogjac -= fs(x)
+                inverseLogjac = inverseLogjac - fs(x).reshape(z.shape[0],-1).sum(dim=1)
 
         z = torch.cat((x, y),1)
         return z,inverseLogjac #<------note here!!
@@ -37,17 +37,17 @@ class Realnvp(nn.Module): # fill in the parent class
                 ft = self.tList[i]
                 fs = self.sList[i]
                 x = torch.exp(fs(y))*x + ft(y)
-                forwardLogjac += fs(y)
+                forwardLogjac = forwardLogjac + fs(y).reshape(z.shape[0],-1).sum(dim=1)
             else:
                 ft = self.tList[i]
                 fs = self.sList[i]
                 y = torch.exp(fs(x))*y + ft(x)
-                forwardLogjac += fs(x)
+                forwardLogjac = forwardLogjac + fs(x).reshape(z.shape[0],-1).sum(dim=1)
         z = torch.cat((x, y),1)
 
         return z,forwardLogjac #<------note here!!
 
-    def sample(self,batchSize):
+    def sample(self, batchSize):
         b = self.prior.sample(batchSize)
         a = self.forward(b)
         return a[0]
