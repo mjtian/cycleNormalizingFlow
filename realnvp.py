@@ -18,12 +18,12 @@ class Realnvp(nn.Module): # fill in the parent class
                 ft = self.tList[i]
                 fs = self.sList[i]
                 x = (x-ft(y))*torch.exp(-fs(y))
-                inverseLogjac -=fs(y)
+                inverseLogjac -= fs(y)
             else:
                 ft = self.tList[i]
                 fs = self.sList[i]
                 y = (y-ft(x))*torch.exp(-fs(x))
-                inverseLogjac -=fs(x)
+                inverseLogjac -= fs(x)
 
         z = torch.cat((x, y),1)
         return z,inverseLogjac #<------note here!!
@@ -37,22 +37,26 @@ class Realnvp(nn.Module): # fill in the parent class
                 ft = self.tList[i]
                 fs = self.sList[i]
                 x = torch.exp(fs(y))*x + ft(y)
-                forwardLogjac +=fs(y)
+                forwardLogjac += fs(y)
             else:
                 ft = self.tList[i]
                 fs = self.sList[i]
                 y = torch.exp(fs(x))*y + ft(x)
-                forwardLogjac +=fs(x)
+                forwardLogjac += fs(x)
         z = torch.cat((x, y),1)
 
         return z,forwardLogjac #<------note here!!
 
     def sample(self,batchSize):
-        pass
+        b = self.prior.sample(batchSize)
+        a = self.forward(b)
+        return a[0]
 
     def logProbability(self,z):
-        pass
-
+        a = self.inverse(z)
+        pp =self.prior.logProbability(a[0])
+        logp =pp - a[1]
+        return logp
 
 
 
