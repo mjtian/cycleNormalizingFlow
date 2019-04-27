@@ -6,11 +6,13 @@ from realnvp import Realnvp
 import math
 
 def train():
+    train_data, train_label, test_data, test_label = load_MNIST()
     lr = 0.5
     Epoch = 10
-    Iteration = len(train_data) // batch_size
     Batchsize_test = 10
     Batchsize_train = 100
+    Iteration = len(train_data) // Batchsize_train
+
     # an epoch means running through the training set roughly once
 
     params = list(Realnvp.parameters())
@@ -19,7 +21,7 @@ def train():
     print ('total nubmer of trainable parameters:', nparams)
     optimizer = torch.optim.Adam(params, lr=lr, weight_decay=weight_decay)
 
-    train_data, train_label, test_data, test_label = load_MNIST()
+
     x_test = random_draw(test_data, Batchsize_test)
     tList =[utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4]),utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4])]
     sList =[utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4]),utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4])]
