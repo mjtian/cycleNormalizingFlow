@@ -1,8 +1,9 @@
 from __future__ import division
 import numpy as np
 
-from utils import load_MNIST, random_draw
+from utils import load_MNIST, random_draw ,SimpleMLP
 from realnvp import Realnvp
+from gaussian import Gaussian
 import math
 
 def train():
@@ -15,21 +16,20 @@ def train():
 
     # an epoch means running through the training set roughly once
 
-    params = list(Realnvp.parameters())
-    params = list(filter(lambda p: p.requires_grad, params))
-    nparams = sum([np.prod(p.size()) for p in params])
-    print ('total nubmer of trainable parameters:', nparams)
-    optimizer = torch.optim.Adam(params, lr=lr, weight_decay=weight_decay)
-
-
     x_test = random_draw(test_data, Batchsize_test)
-    tList =[utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4]),utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4])]
-    sList =[utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4]),utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4])]
+    tList =[SimpleMLP([4, 10, 4]), SimpleMLP([4, 10, 4]),SimpleMLP([4, 10, 4]), SimpleMLP([4, 10, 4])]
+    sList =[SimpleMLP([4, 10, 4]), SimpleMLP([4, 10, 4]),SimpleMLP([4, 10, 4]), SimpleMLP([4, 10, 4])]
     p = Gaussian([28,28])
     f = Realnvp(sList,tList,prior=p)
     logp1 = f.logProbability(x_test)
     loss1= - sum(logp1)/Batchsize_test
     print('Before Training.\nTest loss = %.4f' %loss1)
+
+    params = list(Realnvp.parameters())
+    params = list(filter(lambda p: p.requires_grad, params))
+    nparams = sum([np.prod(p.size()) for p in params])
+    print ('total nubmer of trainable parameters:', nparams)
+    optimizer = torch.optim.Adam(params, lr=lr, weight_decay=weight_decay)
 
     for epoch in range(Epoch):
         for j in range(Iteration):
