@@ -8,9 +8,9 @@ class Realnvp(nn.Module): # fill in the parent class
         self.name = name
         self.tList =nn.ModuleList(tList) # init your inner layer list here, remember torch has it's own init method
         self.sList =nn.ModuleList(sList)
-        self.prior= prior #<------note here!!
+        self.prior= prior
     def inverse(self,z):
-        inverseLogjac = z.new_zeros(z.shape[0]) #<------note here!!
+        inverseLogjac = z.new_zeros(z.shape[0])
         x = z[:,:z.shape[1]//2]
         y = z[:,z.shape[1]//2:]
         for i in range(len(self.tList)-1,-1,-1): # write the transmission of variables here, may take multiply lines.
@@ -26,10 +26,10 @@ class Realnvp(nn.Module): # fill in the parent class
                 inverseLogjac = inverseLogjac - fs(x).reshape(z.shape[0],-1).sum(dim=1)
 
         z = torch.cat((x, y),1)
-        return z,inverseLogjac #<------note here!!
+        return z,inverseLogjac
 
     def forward(self, z):
-        forwardLogjac = z.new_zeros(z.shape[0]) #<------note here!!
+        forwardLogjac = z.new_zeros(z.shape[0])
         x = z[:,:z.shape[1]//2]
         y = z[:,z.shape[1]//2:]
         for i in range(len(self.tList)):  # write the transmission of variables here, may take multiply lines.
@@ -45,7 +45,7 @@ class Realnvp(nn.Module): # fill in the parent class
                 forwardLogjac = forwardLogjac + fs(x).reshape(z.shape[0],-1).sum(dim=1)
         z = torch.cat((x, y),1)
 
-        return z,forwardLogjac #<------note here!!
+        return z,forwardLogjac
 
     def sample(self, batchSize):
         b = self.prior.sample(batchSize)
