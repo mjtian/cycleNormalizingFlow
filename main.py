@@ -16,7 +16,7 @@ def train():
     x, label = random_draw(test_data, test_ label, 1000)
     tList =[utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4]),utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4])]
     sList =[utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4]),utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4])]
-    p =
+    p = Gaussian([8])
     f = Realnvp(sList,tList,prior=p)
     result_= f.forward(x)
     result = result_[0]
