@@ -1,5 +1,6 @@
 from __future__ import division
 import numpy as np
+from torchvision import transforms
 
 from utils import load_MNIST, random_draw ,SimpleMLP
 from realnvp import Realnvp
@@ -15,13 +16,16 @@ def train():
     Iteration = len(train_data) // Batchsize_train
 
     # an epoch means running through the training set roughly once
+    transform = transforms.ToTensor()
+
 
     x_test = random_draw(test_data, Batchsize_test)
+    x_test1 = transform(x_test)
     tList =[SimpleMLP([4, 10, 4]), SimpleMLP([4, 10, 4]),SimpleMLP([4, 10, 4]), SimpleMLP([4, 10, 4])]
     sList =[SimpleMLP([4, 10, 4]), SimpleMLP([4, 10, 4]),SimpleMLP([4, 10, 4]), SimpleMLP([4, 10, 4])]
     p = Gaussian([28,28])
     f = Realnvp(sList,tList,prior=p)
-    logp1 = f.logProbability(x_test)
+    logp1 = f.logProbability(x_test1)
     loss1= - sum(logp1)/Batchsize_test
     print('Before Training.\nTest loss = %.4f' %loss1)
 
@@ -33,8 +37,9 @@ def train():
 
     for epoch in range(Epoch):
         for j in range(Iteration):
-           x_trian= random_draw(train_data,Batchsize_train)
-           logp = f.logProbability(x_trian)
+           x_train= random_draw(train_data,Batchsize_train)
+           x_train1 = transform(x_train)
+           logp = f.logProbability(x_train1)
            loss = - sum(logp)/Batchsize_train
 
            f.zero_grad()
