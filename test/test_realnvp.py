@@ -17,8 +17,8 @@ def test_bijective():
     # import pdb
     # pdb.set_trace()
     f = Realnvp(sList,tList,prior=p)
-    x = f.sample(10)
-    op = f.logProbability(x)
+    x = f.sample(10)    #print 10行 1*8矩阵
+    op = f.logProbability(x)  #print 1*10矩阵
     y,pi = f.inverse(x)
     pp = f.prior.logProbability(y)
     yx,pf = f.forward(y)
