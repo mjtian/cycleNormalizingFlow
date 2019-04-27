@@ -55,7 +55,7 @@ during the download. If you do, remove `data` folder and try again.')
     data[3] = labels
     return data
 
-def random_draw(data, label, batch_size):
+def random_draw(data, batch_size):
     '''
     random draw a batch of data and label.
     Args:
@@ -68,5 +68,4 @@ def random_draw(data, label, batch_size):
     '''
     perm = np.random.permutation(data.shape[0])
     data_b = data[perm[:batch_size]]
-    label_b = label[perm[:batch_size]]
-    return data_b.reshape([data_b.shape[0], -1]) / 255.0, label_b
+    return data_b.reshape([data_b.shape[0], -1]) / 255.0
