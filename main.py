@@ -33,9 +33,9 @@ def train():
             f_backward(f)
 
             # update network parameters
-            for node in net:
-                for p, p_delta in zip(node.parameters, node.parameters_deltas):
-                    p -= learning_rate * p_delta  # stochastic gradient descent
+            # for node in net:
+            #     for p, p_delta in zip(node.parameters, node.parameters_deltas):
+            #         p -= learning_rate * p_delta  # stochastic gradient descent
 
         print("epoch = %d/%d, loss = %.4f, corret rate = %.2f" %
               (epoch, num_epoch, loss, match_ratio(result, label)))
