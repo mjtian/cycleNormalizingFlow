@@ -11,7 +11,7 @@ import math
 
 def train():
     train_data, train_label, test_data, test_label = load_MNIST()
-    lr = 1e-3
+    lr = 1e-5
     Epoch = 10
     Batchsize_test = 20
     Batchsize_train = 600
@@ -81,7 +81,8 @@ def train():
     from matplotlib import pyplot as plt
 
     samples = f.sample(1)[0].detach().numpy().reshape(28,28)
-    plt.matshow(samples)
+    a = plt.matshow(samples,cmap="gray")
+    plt.colorbar(a)
     plt.figure()
     plt.plot(trainLoss,label="Training")
     plt.plot(testLoss,label="Test")
