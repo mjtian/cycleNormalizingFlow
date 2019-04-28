@@ -4,7 +4,7 @@ import torch
 from torch import nn
 from torchvision import transforms
 
-from utils import load_MNIST, random_draw ,SimpleMLP
+from utils import load_MNIST, random_draw ,SimpleMLP,ScalableTanh
 from realnvp import Realnvp
 from gaussian import Gaussian
 import math
@@ -26,7 +26,7 @@ def train():
 
     x_test11 = x_test1.reshape(-1,28*28)
     tList = [SimpleMLP([392,392*2,392,392*2,392],[nn.ELU(),nn.ELU(),nn.ELU(),None]) for _ in range(depth)]
-    sList = [SimpleMLP([392,392*2,392,392*2,392],[nn.ELU(),nn.ELU(),nn.ELU(),nn.Tanh()]) for _ in range(depth)]
+    sList = [SimpleMLP([392,392*2,392,392*2,392],[nn.ELU(),nn.ELU(),nn.ELU(),ScalableTanh(392)]) for _ in range(depth)]
     p = Gaussian([28*28])
     f = Realnvp(sList,tList,prior=p)
     # import pdb
