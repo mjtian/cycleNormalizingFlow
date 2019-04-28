@@ -10,10 +10,10 @@ import math
 
 def train():
     train_data, train_label, test_data, test_label = load_MNIST()
-    lr = 0.5
+    lr = 1e-3
     Epoch = 10
-    Batchsize_test = 10
-    Batchsize_train = 100
+    Batchsize_test = 20
+    Batchsize_train = 60000
     Iteration = len(train_data) // Batchsize_train
     # an epoch means running through the training set roughly once
 
@@ -45,19 +45,19 @@ def train():
            x_train1 = torch.from_numpy(x_train).to(torch.float32)
            x_train11 = x_train1.reshape(-1,28*28)
            logp = f.logProbability(x_train11)
-           loss = -logp.mean
+           loss = -logp.mean()
 
            f.zero_grad()
            loss.backward()
            optimizer.step()
 
-        print("epoch = %d/%d, loss = %.4f" %(epoch, loss))
+        print("epoch = %d, loss = %.4f" %(epoch, loss))
 
     x = random_draw(test_data, Batchsize_test)
     x1 = torch.from_numpy(x).to(torch.float32)
     x11 = x1.reshape(-1,28*28)
     logp2 = f.logProbability(x11)
-    loss2= -logp2.mean
+    loss2= -logp2.mean()
     print('After Training.\nTest loss = %.4f' %loss2)
 
 
