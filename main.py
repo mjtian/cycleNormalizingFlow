@@ -11,7 +11,7 @@ import math
 
 def train():
     train_data, train_label, test_data, test_label = load_MNIST()
-    lr = 1e-5
+    lr = 1e-4
     Epoch = 10
     Batchsize_test = 20
     Batchsize_train = 600
