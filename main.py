@@ -19,16 +19,25 @@ def train():
     depth = 10
     # an epoch means running through the training set roughly once
 
-
-
     x_test = random_draw(test_data, Batchsize_test)
     x_test1 = torch.from_numpy(x_test).to(torch.float32)
 
     x_test11 = x_test1.reshape(-1,28*28)
-    tList = [SimpleMLP([392,392*2,392,392*2,392],[nn.ELU(),nn.ELU(),nn.ELU(),None]) for _ in range(depth)]
+    tList = [SimpleMLP([392,392*2,392,392*2,392],[nn.ELU(),nn.ELU(),nn.ELU(),nn.Tanh()]) for _ in range(depth)]
     sList = [SimpleMLP([392,392*2,392,392*2,392],[nn.ELU(),nn.ELU(),nn.ELU(),ScalableTanh(392)]) for _ in range(depth)]
+
+    maskList = []
+    for i in range(len(tList)//2):
+        b = torch.zeros(1,28*28).byte()
+        i = torch.randperm(b.numel()).narrow(0, 0, b.numel() // 2)
+        b.zero_()[:,i] = 1
+        b_=1-b
+        maskList.append(b)
+        maskList.append(b_)
+    maskList = torch.cat(maskList,0)
+
     p = Gaussian([28*28])
-    f = Realnvp(sList,tList,prior=p)
+    f = Realnvp(sList,tList,p,maskList)
     # import pdb
     # pdb.set_trace()
     logp1 = f.logProbability(x_test11)
