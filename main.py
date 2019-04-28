@@ -20,17 +20,17 @@ def train():
 
 
     x_test = random_draw(test_data, Batchsize_test)
-    x_test1 = torch.from_numpy(x_test)
+    x_test1 = torch.from_numpy(x_test).to(torch.float32)
 
     x_test11 = x_test1.reshape(-1,28*28)
     tList =[SimpleMLP([392, 196, 392]), SimpleMLP([392, 196, 392]),SimpleMLP([392, 196, 392]), SimpleMLP([392, 196, 392])]
     sList =[SimpleMLP([392, 196, 392]), SimpleMLP([392, 196, 392]),SimpleMLP([392, 196, 392]), SimpleMLP([392, 196, 392])]
     p = Gaussian([28*28])
     f = Realnvp(sList,tList,prior=p)
-    import pdb
-    pdb.set_trace()
+    # import pdb
+    # pdb.set_trace()
     logp1 = f.logProbability(x_test11)
-    loss1= - logp1.mean
+    loss1= -logp1.mean()
     print('Before Training.\nTest loss = %.4f' %loss1)
 
     params = list(Realnvp.parameters())
@@ -42,7 +42,7 @@ def train():
     for epoch in range(Epoch):
         for j in range(Iteration):
            x_train= random_draw(train_data,Batchsize_train)
-           x_train1 = torch.from_numpy(x_train)
+           x_train1 = torch.from_numpy(x_train).to(torch.float32)
            x_train11 = x_train1.reshape(-1,28*28)
            logp = f.logProbability(x_train11)
            loss = -logp.mean
@@ -54,10 +54,10 @@ def train():
         print("epoch = %d/%d, loss = %.4f" %(epoch, loss))
 
     x = random_draw(test_data, Batchsize_test)
-    x1 = torch.from_numpy(x)
+    x1 = torch.from_numpy(x).to(torch.float32)
     x11 = x1.reshape(-1,28*28)
     logp2 = f.logProbability(x11)
-    loss2= - logp2.mean
+    loss2= -logp2.mean
     print('After Training.\nTest loss = %.4f' %loss2)
 
 
