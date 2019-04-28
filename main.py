@@ -33,7 +33,7 @@ def train():
     loss1= -logp1.mean()
     print('Before Training.\nTest loss = %.4f' %loss1)
 
-    params = list(Realnvp.parameters())
+    params = list(f.parameters())
     params = list(filter(lambda p: p.requires_grad, params))
     nparams = sum([np.prod(p.size()) for p in params])
     print ('total nubmer of trainable parameters:', nparams)
