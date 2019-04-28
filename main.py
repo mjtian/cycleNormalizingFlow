@@ -17,6 +17,7 @@ def train():
     Batchsize_train = 600
     Iteration = len(train_data) // Batchsize_train
     depth = 10
+    sampleBatch = 10
     # an epoch means running through the training set roughly once
 
     x_test = random_draw(test_data, Batchsize_test)
@@ -89,9 +90,10 @@ def train():
 
     from matplotlib import pyplot as plt
 
-    samples = f.sample(1)[0].detach().numpy().reshape(28,28)
-    a = plt.matshow(samples,cmap="gray")
-    plt.colorbar(a)
+    samples = f.sample(sampleBatch).detach().numpy().reshape(sampleBatch,28,28)
+    for k in range(sampleBatch):
+        a = plt.matshow(samples[k].reshape(28,28),cmap="gray")
+        plt.colorbar(a)
     plt.figure()
     plt.plot(trainLoss,label="Training")
     plt.plot(testLoss,label="Test")
