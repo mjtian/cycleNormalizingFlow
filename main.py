@@ -1,6 +1,7 @@
 from __future__ import division
 import numpy as np
 import torch
+from torch import nn
 from torchvision import transforms
 
 from utils import load_MNIST, random_draw ,SimpleMLP
@@ -15,6 +16,7 @@ def train():
     Batchsize_test = 20
     Batchsize_train = 600
     Iteration = len(train_data) // Batchsize_train
+    depth = 10
     # an epoch means running through the training set roughly once
 
 
@@ -23,8 +25,8 @@ def train():
     x_test1 = torch.from_numpy(x_test).to(torch.float32)
 
     x_test11 = x_test1.reshape(-1,28*28)
-    tList =[SimpleMLP([392, 196, 392]), SimpleMLP([392, 196, 392]),SimpleMLP([392, 196, 392]), SimpleMLP([392, 196, 392])]
-    sList =[SimpleMLP([392, 196, 392]), SimpleMLP([392, 196, 392]),SimpleMLP([392, 196, 392]), SimpleMLP([392, 196, 392])]
+    tList = [SimpleMLP([392,392*2,392,392*2,392],[nn.ELU(),nn.ELU(),nn.ELU(),None]) for _ in range(depth)]
+    sList = [SimpleMLP([392,392*2,392,392*2,392],[nn.ELU(),nn.ELU(),nn.ELU(),nn.Tanh()]) for _ in range(depth)]
     p = Gaussian([28*28])
     f = Realnvp(sList,tList,prior=p)
     # import pdb
@@ -64,7 +66,7 @@ def train():
 
            TestLOSS.append(loss2.item())
 
-        print("epoch = %d, loss = %.4f" %(epoch, loss))
+        print("epoch = %d, loss = %.4f, test loss = %.4f" %(epoch, loss, loss2))
 
     trainLoss = np.array(TrainLOSS)
     testLoss = np.array(TestLOSS)
