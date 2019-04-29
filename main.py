@@ -10,7 +10,7 @@ from gaussian import Gaussian
 def train():
     train_data, train_label, test_data, test_label = load_MNIST()
     lr = 1e-4
-    Epoch = 100
+    Epoch = 1
     Batchsize_test = 20
     Batchsize_train = 600
     Iteration = len(train_data) // Batchsize_train
@@ -96,6 +96,22 @@ def train():
     plt.figure()
     plt.plot(trainLoss,label="Training")
     plt.plot(testLoss,label="Test")
+    plt.legend()
+
+    plt.show()
+
+
+    gua = p.sample(Batchsize_test)
+    x11 = x11 + gua
+    trans = f.inverse(x11)
+    trans = f.forward(trans[0])
+    trans_= trans[0].detach().numpy().reshape(Batchsize_test,28,28)
+    for k in range(Batchsize_test):
+        a = plt.matshow(trans_[k].reshape(28,28),cmap="gray")
+        plt.colorbar(a)
+
+    plt.figure()
+
     plt.legend()
 
     plt.show()
