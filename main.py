@@ -2,17 +2,15 @@ from __future__ import division
 import numpy as np
 import torch
 from torch import nn
-from torchvision import transforms
-
 from utils import load_MNIST, random_draw ,SimpleMLP,ScalableTanh
 from realnvp import Realnvp
 from gaussian import Gaussian
-import math
+
 
 def train():
     train_data, train_label, test_data, test_label = load_MNIST()
     lr = 1e-4
-    Epoch = 2
+    Epoch = 100
     Batchsize_test = 20
     Batchsize_train = 600
     Iteration = len(train_data) // Batchsize_train
