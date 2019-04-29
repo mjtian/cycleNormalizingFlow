@@ -68,4 +68,6 @@ def random_draw(data, batch_size):
     '''
     perm = np.random.permutation(data.shape[0])
     data_b = data[perm[:batch_size]]
-    return data_b.reshape([data_b.shape[0], -1]) / 255.0
+    data_b = data_b.astype(np.float64)
+    data_b += np.random.randn(*data_b.shape)
+    return data_b.reshape([data_b.shape[0], -1]) / 127.5 -1
