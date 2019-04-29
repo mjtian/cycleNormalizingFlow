@@ -11,16 +11,15 @@ from realnvp import Realnvp
 from gaussian import Gaussian
 
 def test_bijective():
-    p = Gaussian([28*28])
-    tList = [SimpleMLP([392,392*2,392,392*2,392],[nn.ELU(),nn.ELU(),nn.ELU(),nn.Tanh()]) for _ in range(4)]
-    sList = [SimpleMLP([392,392*2,392,392*2,392],[nn.ELU(),nn.ELU(),nn.ELU(),ScalableTanh(392)]) for _ in range(4)]
+    p = Gaussian([10])
+    tList = [SimpleMLP([5,10,5],[nn.ELU(),nn.Tanh()]) for _ in range(2)]
+    sList = [SimpleMLP([5,10,5],[nn.ELU(),nn.Tanh()]) for _ in range(2)]
 
     #tList =[utils.SimpleMLP([28*28/2, 28*28, 28*28/2]) for _ in range(4)]
     #sList =[utils.SimpleMLP([28*28/2, 28*28, 28*28/2]) for _ in range(4)]
     maskList = []
-    '''
     for i in range(len(tList)//2):
-        b = torch.zeros(1,28*28).byte()
+        b = torch.zeros(1,10).byte()
         i = torch.randperm(b.numel()).narrow(0, 0, b.numel() // 2)
         b.zero_()[:,i] = 1
         b_=1-b
@@ -32,6 +31,7 @@ def test_bijective():
     for i in range(len(tList)):
         maskList.append(b)
         b = 1-b
+    '''
     maskList = torch.cat(maskList,0)
     #x = torch.randn(1,8)
     #  # Build your NICE net here, may take multiply lines.
