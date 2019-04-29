@@ -75,6 +75,7 @@ def train():
            loss2= -logp2.mean()
 
            TestLOSS.append(loss2.item())
+        torch.save(f.state_dict(),f.name+"_"+str(epoch)+".saving")
 
         print("epoch = %d, loss = %.4f, test loss = %.4f" %(epoch, loss, loss2))
 
@@ -100,6 +101,9 @@ def train():
     plt.legend()
 
     plt.show()
+
+    import pdb
+    pdb.set_trace()
 
 if __name__ == "__main__":
     train()
