@@ -4,20 +4,34 @@ import os
 import sys
 sys.path.append(os.getcwd())
 import utils
+from torch import nn
+from utils import ScalableTanh,SimpleMLP
 
 from realnvp import Realnvp
 from gaussian import Gaussian
 
 def test_bijective():
-    p = Gaussian([8])
-    tList =[utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4]),utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4])]
-    sList =[utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4]),utils.SimpleMLP([4, 10, 4]), utils.SimpleMLP([4, 10, 4])]
-    b = torch.zeros(1,8).byte()
-    b[:,:4] = 1
+    p = Gaussian([28*28])
+    tList = [SimpleMLP([392,392*2,392,392*2,392],[nn.ELU(),nn.ELU(),nn.ELU(),nn.Tanh()]) for _ in range(4)]
+    sList = [SimpleMLP([392,392*2,392,392*2,392],[nn.ELU(),nn.ELU(),nn.ELU(),ScalableTanh(392)]) for _ in range(4)]
+
+    #tList =[utils.SimpleMLP([28*28/2, 28*28, 28*28/2]) for _ in range(4)]
+    #sList =[utils.SimpleMLP([28*28/2, 28*28, 28*28/2]) for _ in range(4)]
     maskList = []
+    '''
+    for i in range(len(tList)//2):
+        b = torch.zeros(1,28*28).byte()
+        i = torch.randperm(b.numel()).narrow(0, 0, b.numel() // 2)
+        b.zero_()[:,i] = 1
+        b_=1-b
+        maskList.append(b)
+        maskList.append(b_)
+    '''
+    b = torch.zeros(1,28*28).byte()
+    b[:,:28*28//2] = 1
     for i in range(len(tList)):
         maskList.append(b)
-        b=1-b
+        b = 1-b
     maskList = torch.cat(maskList,0)
     #x = torch.randn(1,8)
     #  # Build your NICE net here, may take multiply lines.
