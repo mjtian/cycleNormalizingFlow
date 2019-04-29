@@ -25,8 +25,8 @@ def train():
     tList = [SimpleMLP([392,392*2,392,392*2,392],[nn.ELU(),nn.ELU(),nn.ELU(),nn.Tanh()]) for _ in range(depth)]
     sList = [SimpleMLP([392,392*2,392,392*2,392],[nn.ELU(),nn.ELU(),nn.ELU(),ScalableTanh(392)]) for _ in range(depth)]
 
-    '''
     maskList = []
+    '''
     b = torch.zeros(1,28*28).byte()
     b[:,:28*28//2] = 1
     for i in range(len(tList)):
