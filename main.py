@@ -3,14 +3,14 @@ import numpy as np
 import torch
 from torch import nn
 from utils import load_MNIST, random_draw ,SimpleMLP,ScalableTanh
-from realnvp import Realnvp
+from flow import RNVP
 from gaussian import Gaussian
 
 
 def train():
     train_data, train_label, test_data, test_label = load_MNIST()
-    lr = 1e-4
-    Epoch = 1
+    lr = 1e-3
+    Epoch = 30
     Batchsize_test = 20
     Batchsize_train = 600
     Iteration = len(train_data) // Batchsize_train
@@ -22,8 +22,8 @@ def train():
     x_test1 = torch.from_numpy(x_test).to(torch.float32)
 
     x_test11 = x_test1.reshape(-1,28*28)
-    tList = [SimpleMLP([392,392*2,392,392*2,392],[nn.ELU(),nn.ELU(),nn.ELU(),nn.Tanh()]) for _ in range(depth)]
-    sList = [SimpleMLP([392,392*2,392,392*2,392],[nn.ELU(),nn.ELU(),nn.ELU(),ScalableTanh(392)]) for _ in range(depth)]
+    tList = [SimpleMLP([784,392*2,392,392*2,784],[nn.ELU(),nn.ELU(),nn.ELU(),nn.Tanh()]) for _ in range(depth)]
+    sList = [SimpleMLP([784,392*2,392,392*2,784],[nn.ELU(),nn.ELU(),nn.ELU(),ScalableTanh(784)]) for _ in range(depth)]
 
     maskList = []
     '''
@@ -34,7 +34,7 @@ def train():
         b = 1-b
     '''
     for i in range(len(tList)//2):
-        b = torch.zeros(1,28*28).byte()
+        b = torch.zeros(1,28*28)
         i = torch.randperm(b.numel()).narrow(0, 0, b.numel() // 2)
         b.zero_()[:,i] = 1
         b_=1-b
@@ -43,7 +43,7 @@ def train():
     maskList = torch.cat(maskList,0)
 
     p = Gaussian([28*28])
-    f = Realnvp(sList,tList,p,maskList)
+    f = RNVP(maskList,sList,tList,p)
     # import pdb
     # pdb.set_trace()
     logp1 = f.logProbability(x_test11)
@@ -80,10 +80,10 @@ def train():
            loss2= -logp2.mean()
 
            TestLOSS.append(loss2.item())
-        torch.save(f.state_dict(),f.name+"_"+str(epoch)+".saving")
 
         print("epoch = %d, loss = %.4f, test loss = %.4f" %(epoch, loss, loss2))
 
+    torch.save(f.state_dict(),f.name+"_"+str(epoch)+".saving")
     trainLoss = np.array(TrainLOSS)
     testLoss = np.array(TestLOSS)
 
@@ -96,7 +96,10 @@ def train():
 
     from matplotlib import pyplot as plt
 
-    samples = f.sample(sampleBatch).detach().numpy().reshape(sampleBatch,28,28)
+    #samples = np.tanh(f.sample(sampleBatch).detach().numpy().reshape(sampleBatch,28,28))
+    import pdb
+    pdb.set_trace()
+    samples = (f.sample(sampleBatch)[0]).detach().numpy().reshape(sampleBatch,28,28)
     for k in range(sampleBatch):
         a = plt.matshow(samples[k].reshape(28,28),cmap="gray")
         plt.colorbar(a)

@@ -26,7 +26,7 @@ maskList = torch.cat(maskList,0)
 p = Gaussian([28*28])
 f = Realnvp(sList,tList,p,maskList)
 
-f.load_state_dict(torch.load("./"+f.name+"_1"+".saving"))
+f.load_state_dict(torch.load("./"+f.name+"_49"+".saving"))
 
 from matplotlib import pyplot as plt
 
