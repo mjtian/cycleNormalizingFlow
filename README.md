@@ -1,60 +1,23 @@
-### Readme for test.py
 
-Read [pytorch tutoial part 2](https://pytorch.org/tutorials/beginner/blitz/neural_networks_tutorial.html#sphx-glr-beginner-blitz-neural-networks-tutorial-py) first, everything based on it and some of my habits.
 
 #### 1. Build a pytorch module
 
-**Object:** make `python test.py` runs without error.
-
 This `test.py` implements a simple multi-layer perceptron neural network(MLP) or full-connected network(FC). This kind of net is the basic and simplest net. At each layer, it goes like this:
 $$
-\textbf{Input: }\mathbf{x}\in[\text{batch},\text{input dimension}]; \textbf{Weight: } \mathbf{w} \in [\text{input dimension},\text{output dimension}] \\
+\textbf{Input: }\mathbf{x}\in[\text{batch},\text{input dimension}]; \\ \textbf{Weight: } \mathbf{w} \in [\text{input dimension},\text{output dimension}] \\
 \mathbf{y} = activation(\mathbf{w}\cdot\mathbf{x})
 $$
 So, the init api of this class should contain the *shape* of each layer, and *activations* of each layer.
 
 #### 2. Build a reversed MLP
 
-**Object:** make `python test2.py` runs without error.
-
-**Don't** reimplement a new class, import code from `test.py`, and implement two dimension transformations MLP of $28*28\rightarrow50\rightarrow1$ and $1\rightarrow 10\rightarrow 28*28$, note that this kind of transformation is what a GAN is doing.
+**Import **code from `test.py`, and implement two dimension transformations MLP of $28*28\rightarrow50\rightarrow1$ and $1\rightarrow 10\rightarrow 28*28$, note that this kind of transformation is what a GAN is doing.
 
 #### 3. Test2 Again
 
-I have moved test.py to `utils/layer`,  so you now have to make `test2.py` run again.
+I have moved MLP to `utils/layer`,  and  write  `__init__.py` .
 
-Examples can be found at `utils/layers`
-
-Hint1: Since `test2.py` is not finished at the time I checked out test3 branch, `git cherry-pick` may be useful.
-
-Hint2: This task is about import architecture in python, refer to what I have done at [my utils](https://github.com/li012589/NeuralRG/tree/master/utils). The key is how to write your `__init__.py` .
-
-
-
-#### 4. pytest
-
-First install `pytest` using `conda` or `pip`
-
-Then run `pytest` at the folder `pythonhead`, you should see something like this:
-
-```bash
-=============================================== test session starts ================================================
-platform darwin -- Python 3.6.8, pytest-3.2.5, py-1.4.33, pluggy-0.4.0
-rootdir: /Users/lili/Documents/MySpace/cycleNormalizingFlow/pythonhead, inifile:
-collected 2 items
-
-test/test_example.py ..
-
-============================================= 2 passed in 0.54 seconds ============================================
-```
-
-I have already wroten some simple test at `/test/test_example.py`. You can use this as example to make `test2.py` into a unit test at `/test/test_mlp.py`.
-
-
-
-This is an way to use the concept Unit Test in python.
-
-#### 5. Simple bijective(NICE)
+#### 4. Simple bijective(NICE)
 
 Here a **bijective** function is a function that map a set $V \in \mathbb{R}^n$ into another set $U \in \mathbb{R}^n$ and also have the inversed mapping of $U \rightarrow V$. One simple form of this is like :
 $$
@@ -72,15 +35,11 @@ So here your task is code a bijecitve network that parameterize this kind of fun
 
 Template is given at `NICE.py`, related tests are given at `test/test_nice.py`.
 
-#### 6. Abstraction of bijective test
+#### 5. Abstraction of bijective test
 
+#### 6. Abstraction of bijective net
 
-
-#### 7. Abstraction of bijective net
-
-
-
-#### 8. RealNVP
+#### 7. RealNVP
 
 Implement this bijective function:
 $$
@@ -94,11 +53,9 @@ $$
 \end{split}
 $$
 
-Fill `realnvp.py` and `test/test_realnvp.py`.
+Write`realnvp.py` and `test/test_realnvp.py`.
 
-
-
-#### 9. Probability Prior(Gaussian)
+#### 8. Probability Prior(Gaussian)
 
 Write a class that has two method: **sample**; **logProbability**. 
 
@@ -106,13 +63,9 @@ This class take a shape list as input for init method.
 
 Sample take one parameter: batchSize, and return a variables from Gaussian distribution of shape [batchsize, shape].
 
-logProbability take one parameter: a pytorch variable of shape [batchsize, shape] and return the logprobability of each sample, so this is of shape [batchsize]. The equation of this log probability can be seen from [wiki: Gaussian](https://en.wikipedia.org/wiki/Normal_distribution). 
+logProbability take one parameter: a pytorch variable of shape [batchsize, shape] and return the logprobability of each sample, so this is of shape [batchsize]. 
 
-Some basic frame has been wroten in `gaussian.py`.
-
-
-
-#### 10.Jacobian
+#### 9.Jacobian
 
 Deduce the Jacobian of a NICE transformation here:
 $$
@@ -128,6 +81,20 @@ Re-implement the inverse and forward again, this time consider the change of pro
 
 
 
-#### 11. Implement sample and probability
+#### 10. Implement sample and probability
 
 Now, when we init the `NICE` or `RealNVP` , we take another parameter as the prior. So this transforamtion is a transformation of probability distribution, it transforamtion the prior distribution to a distribution we want. So `sample` method will draw samples from the transformed distribution. And `logProbability` method will give the log probabilitys of a batch of  given samples.
+
+
+
+#### 11. Download MNIST dataset and import into pytorch
+
+Write a script to download and unzip MNIST data, one example can be seen at <https://github.com/wangleiphy/DL4CSRC/blob/master/1-bp/utils.py#L83>
+
+Also, few lines below, there is a `random_draw` function add all this two function to `utils/MNISTtools.py`
+
+#### 12. Training generative model on MNIST
+
+
+Add a `main.py` and training realnvp on MNIST model, the process is like this: random draw a batch of MNIST data and let realnvp give the probabilitys of every samples from this batch, and mean this batch of probability and let negative this mean as loss and do gradients descent.
+

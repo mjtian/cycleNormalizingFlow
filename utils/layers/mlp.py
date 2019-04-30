@@ -18,6 +18,8 @@ class SimpleMLP(nn.Module): # Fill this blank. Hint: https://pytorch.org/docs/st
         layerList = []
         for no in range(len(activation)): # Fill this blank, create a typical python loop here.
             layerList.append(nn.Linear(dimsList[no], dimsList[no +1]))
+            if activation[no] is None:
+                continue
             layerList.append(activation[no])
 
 
