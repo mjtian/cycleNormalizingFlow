@@ -1,7 +1,3 @@
-### Readme for test.py
-
-Read [pytorch tutoial part 2](https://pytorch.org/tutorials/beginner/blitz/neural_networks_tutorial.html#sphx-glr-beginner-blitz-neural-networks-tutorial-py) first, everything based on it and some of my habits.
-
 #### 1. Build a pytorch module
 
 **Object:** make `python test.py` runs without error.
@@ -29,32 +25,7 @@ Hint1: Since `test2.py` is not finished at the time I checked out test3 branch, 
 
 Hint2: This task is about import architecture in python, refer to what I have done at [my utils](https://github.com/li012589/NeuralRG/tree/master/utils). The key is how to write your `__init__.py` .
 
-
-
-#### 4. pytest
-
-First install `pytest` using `conda` or `pip`
-
-Then run `pytest` at the folder `pythonhead`, you should see something like this:
-
-```bash
-=============================================== test session starts ================================================
-platform darwin -- Python 3.6.8, pytest-3.2.5, py-1.4.33, pluggy-0.4.0
-rootdir: /Users/lili/Documents/MySpace/cycleNormalizingFlow/pythonhead, inifile:
-collected 2 items
-
-test/test_example.py ..
-
-============================================= 2 passed in 0.54 seconds ============================================
-```
-
-I have already wroten some simple test at `/test/test_example.py`. You can use this as example to make `test2.py` into a unit test at `/test/test_mlp.py`.
-
-
-
-This is an way to use the concept Unit Test in python.
-
-#### 5. Simple bijective(NICE)
+#### 4. Simple bijective(NICE)
 
 Here a **bijective** function is a function that map a set $V \in \mathbb{R}^n$ into another set $U \in \mathbb{R}^n$ and also have the inversed mapping of $U \rightarrow V$. One simple form of this is like :
 $$
@@ -72,15 +43,15 @@ So here your task is code a bijecitve network that parameterize this kind of fun
 
 Template is given at `NICE.py`, related tests are given at `test/test_nice.py`.
 
-#### 6. Abstraction of bijective test
+#### 5. Abstraction of bijective test
 
 
 
-#### 7. Abstraction of bijective net
+#### 6. Abstraction of bijective net
 
 
 
-#### 8. RealNVP
+#### 7. RealNVP
 
 Implement this bijective function:
 $$
