@@ -27,10 +27,6 @@ $$
 &&\mathbf{x},\mathbf{y}\in \mathbb{R}^{\frac{n}{2}}
 \end{split}
 $$
-So here your task is code a bijecitve network that parameterize this kind of function.
-
-Template is given at `NICE.py`, related tests are given at `test/test_nice.py`.
-
 
 #### 4. Abstraction of bijective test
 
@@ -51,8 +47,6 @@ $$
 &&\mathbf{x},\mathbf{y}\in \mathbb{R}^{\frac{n}{2}}
 \end{split}
 $$
-
-Write`realnvp.py` and `test/test_realnvp.py`.
 
 
 #### 7. Probability Prior(Gaussian)
@@ -78,8 +72,6 @@ $$
 jacobian_0=[\begin{smallmatrix}e^{sv(y)}&xe^{sv(y)}sv+v\\0&I\end{smallmatrix}]\\
 jacobian_1=[\begin{smallmatrix}I&0\\ye^{su(x)}su+u&e^{su(x)}\end{smallmatrix}]\\
 $$
-Re-implement the inverse and forward again, this time consider the change of probability and return the change of probability using the newly added `inverse/forwardLogjac` variable.
-
 #### 9 Implement sample and probability
 
 Now, when we init the `NICE` or `RealNVP` , we take another parameter as the prior. So this transforamtion is a transformation of probability distribution, it transforamtion the prior distribution to a distribution we want. So `sample` method will draw samples from the transformed distribution. And `logProbability` method will give the log probabilitys of a batch of  given samples.
@@ -87,9 +79,7 @@ Now, when we init the `NICE` or `RealNVP` , we take another parameter as the pri
 
 #### 10. Download MNIST dataset and import into pytorch
 
-Write a script to download and unzip MNIST data, one example can be seen at <https://github.com/wangleiphy/DL4CSRC/blob/master/1-bp/utils.py#L83>
-
-Also, few lines below, there is a `random_draw` function add all this two function to `utils/MNISTtools.py`
+Write a script to download and unzip MNIST data.
 
 
 #### 11. Training generative model on MNIST
